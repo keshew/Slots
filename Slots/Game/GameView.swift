@@ -8,6 +8,8 @@ struct GameView: View {
     @State private var showWinPopup = false
     @State var isSettings = false
     @State var isProfile = false
+    @State var showAlert = false
+    @ObservedObject private var soundManager = SoundManager.shared
     
     var selected: String {
         switch currentIndex {
@@ -346,10 +348,11 @@ struct GameView: View {
                                                                 .stroke(Color(red: 255/255, green: 222/255, blue: 30/255), lineWidth: 5)
                                                                 .overlay {
                                                                     Text("$\(gameModel.bet)")
-                                                                        .Bold(size: 24, color: fontColor)
+                                                                        .Bold(size: 16, color: fontColor)
+                                                                        .minimumScaleFactor(0.7)
                                                                 }
                                                         }
-                                                        .frame(width: UIScreen.main.bounds.size.height > 1000 ? 192 : UIScreen.main.bounds.size.height > 800 ? 72 : 52, height: UIScreen.main.bounds.size.height > 1000 ? 48 : UIScreen.main.bounds.size.height > 800 ? 38 : 28)
+                                                        .frame(width: UIScreen.main.bounds.size.height > 1000 ? 192 : UIScreen.main.bounds.size.height > 700 ? 92 : 92, height: UIScreen.main.bounds.size.height > 1000 ? 48 : UIScreen.main.bounds.size.height > 800 ? 38 : 28)
                                                         .cornerRadius(16)
                                                 }
                                                 
@@ -545,9 +548,26 @@ struct GameView: View {
                             .cornerRadius(24)
                         
                         Button(action: {
-                            gameModel.spin()
-                            GameStatsManager.shared.increaseLebel(value: 10)
-                            GameStatsManager.shared.incrementPlayedGames()
+                            if gameModel.balance != 0, gameModel.balance >= gameModel.bet {
+                                gameModel.spin()
+                                GameStatsManager.shared.increaseLebel(value: 10)
+                                GameStatsManager.shared.incrementPlayedGames()
+                                
+                                switch currentIndex {
+                                case 0:
+                                    soundManager.playSlot1()
+                                case 1:
+                                    soundManager.playSlot2()
+                                case 2:
+                                    soundManager.playSlot3()
+                                case 3:
+                                    soundManager.playSlot4()
+                                default:
+                                    soundManager.playSlot1()
+                                }
+                            } else {
+                                showAlert = true
+                            }
                         }) {
                             Rectangle()
                                 .fill(descBack)
@@ -563,6 +583,13 @@ struct GameView: View {
                                 .cornerRadius(16)
                         }
                         .offset(y: UIScreen.main.bounds.size.height > 440 ? 25 : 15)
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Not enough coins"),
+                                message: Text("You do not have enough coins to spin."),
+                                dismissButton: .default(Text("Ok"))
+                            )
+                        }
                     }
                 }
                 
@@ -586,36 +613,36 @@ struct GameView: View {
                         .ignoresSafeArea()
                     
                     VStack {
-                    Spacer()
-                    
-                    Image(.win)
-                        .resizable()
-                        .frame(width: 421, height: 167)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        gameModel.balance += gameModel.win
-                        UserDefaults.standard.set(gameModel.balance, forKey: "coin")
-                        GameStatsManager.shared.incrementWonGames()
-                        GameStatsManager.shared.addWin(amount: gameModel.win)
-                        gameModel.win = 0
-                    }) {
-                        Rectangle()
-                            .fill(descBack)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color(red: 255/255, green: 222/255, blue: 30/255), lineWidth: 3)
-                                    .overlay {
-                                        Text("Claim")
-                                            .Bold(size: 20, color: Color(red: 255/255, green: 222/255, blue: 30/255))
-                                    }
-                            }
-                            .frame(width: 177, height: 52)
-                            .cornerRadius(16)
-                    }
-                    
-                    Spacer()
+                        Spacer()
+                        
+                        Image(.win)
+                            .resizable()
+                            .frame(width: 421, height: 167)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            gameModel.balance += gameModel.win
+                            UserDefaults.standard.set(gameModel.balance, forKey: "coin")
+                            GameStatsManager.shared.incrementWonGames()
+                            GameStatsManager.shared.addWin(amount: gameModel.win)
+                            gameModel.win = 0
+                        }) {
+                            Rectangle()
+                                .fill(descBack)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color(red: 255/255, green: 222/255, blue: 30/255), lineWidth: 3)
+                                        .overlay {
+                                            Text("Claim")
+                                                .Bold(size: 20, color: Color(red: 255/255, green: 222/255, blue: 30/255))
+                                        }
+                                }
+                                .frame(width: 177, height: 52)
+                                .cornerRadius(16)
+                        }
+                        
+                        Spacer()
                     }
                 }
                 .offset(x: 10, y: 30)

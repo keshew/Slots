@@ -11,6 +11,7 @@ class GameViewModel: ObservableObject {
     @Published var balance: Int = UserDefaults.standard.integer(forKey: "coin")
     @Published var bet: Int = 50
     @Published var win: Int = 0
+    @ObservedObject private var soundManager = SoundManager.shared
     
     var arrayOfImage: [String] {
         switch currentIndex {
@@ -125,8 +126,12 @@ class GameViewModel: ObservableObject {
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             timer.invalidate()
+            self.soundManager.stopSlot1()
+            self.soundManager.stopSlot2()
+            self.soundManager.stopSlot3()
+            self.soundManager.stopSlot4()
             self.isSpinning = false
             self.isStopSpininng = true
             self.checkWin()

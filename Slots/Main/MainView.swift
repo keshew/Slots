@@ -6,6 +6,7 @@ struct MainView: View {
     @State var isGame = false
     @State var isSettings = false
     @State var isProfile = false
+    @ObservedObject private var soundManager = SoundManager.shared
     
     var selected: String {
         switch currentIndex {
@@ -113,7 +114,6 @@ struct MainView: View {
                 .resizable()
                 .ignoresSafeArea()
                 .aspectRatio(contentMode: .fill)
-//                .offset(y: 10)
             
             VStack {
                 ZStack {
@@ -163,24 +163,6 @@ struct MainView: View {
                                         .frame(width: 16, height: 16)
                                 }
                             }
-                            
-//                            Button(action: {
-//                                
-//                            }) {
-//                                ZStack {
-//                                    Circle()
-//                                        .stroke(overlaySettingsBtn, lineWidth: 3)
-//                                        .frame(width: 35, height: 35)
-//                                    
-//                                    Circle()
-//                                        .fill(backSettingsBtn)
-//                                        .frame(width: 35, height: 35)
-//                                    
-//                                    Image(.sound)
-//                                        .resizable()
-//                                        .frame(width: 16, height: 16)
-//                                }
-//                            }
                             
                             Button(action: {
                                 isSettings = true
@@ -236,7 +218,7 @@ struct MainView: View {
                     }
                     .padding(.horizontal, UIScreen.main.bounds.size.height > 700 ? 70 : 10)
                 }
-                .offset(y: UIScreen.main.bounds.size.height > 700 ? -20 : UIScreen.main.bounds.size.height > 430 ? 65 : 55)
+                .offset(y: UIScreen.main.bounds.size.height > 750 ? -20 : UIScreen.main.bounds.size.height > 700 ? 10 : UIScreen.main.bounds.size.height > 430 ? 65 : 55)
                 
                 Spacer()
                 
@@ -336,7 +318,7 @@ struct MainView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, UIScreen.main.bounds.size.height > 1000 ? 130 : 60)
+                        .padding(.horizontal, UIScreen.main.bounds.size.height > 1000 ? 130 : 100)
                     }
                     
                     Button(action: {

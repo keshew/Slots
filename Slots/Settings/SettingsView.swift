@@ -119,16 +119,32 @@ struct SettingsView: View {
                     
                     Button(action: {
                         var musicToSave = music
-                          var soundToSave = sound
-                          
-                          if !isAudioOn {
-                              musicToSave = 0
-                              soundToSave = 0
-                          }
-                          
-                          UserDefaults.standard.set(isAudioOn, forKey: "isAudioOn")
-                          UserDefaults.standard.set(musicToSave, forKey: "musicVolume")
-                          UserDefaults.standard.set(soundToSave, forKey: "soundVolume")
+                        var soundToSave = sound
+
+                        if !isAudioOn {
+                            musicToSave = 0
+                            soundToSave = 0
+                        }
+
+                        UserDefaults.standard.set(isAudioOn, forKey: "isAudioOn")
+                        UserDefaults.standard.set(musicToSave, forKey: "musicVolume")
+                        UserDefaults.standard.set(soundToSave, forKey: "soundVolume")
+
+                        SoundManager.shared.isMusicEnabled = isAudioOn
+                        SoundManager.shared.isSoundEnabled = isAudioOn
+                        SoundManager.shared.backgroundVolume = musicToSave
+                        SoundManager.shared.soundEffectVolume = soundToSave
+
+                        if isAudioOn {
+                            SoundManager.shared.playBackgroundMusic()
+                        } else {
+                            SoundManager.shared.stopBackgroundMusic()
+                            SoundManager.shared.stopWheelMusic()
+                            SoundManager.shared.stopSlot1()
+                            SoundManager.shared.stopSlot2()
+                            SoundManager.shared.stopSlot3()
+                            SoundManager.shared.stopSlot4()
+                        }
                     }) {
                         Rectangle()
                             .fill(Color(red: 10/255, green: 86/255, blue: 44/255))
