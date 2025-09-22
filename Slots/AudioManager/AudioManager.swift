@@ -37,7 +37,25 @@ class SoundManager: ObservableObject {
         loaSlot2Music()
         loaSlot3Music()
         loaSlot4Music()
-        
+
+        if isMusicEnabled {
+            playBackgroundMusic()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    @objc private func appWillResignActive() {
+        stopBackgroundMusic()
+        stopWheelMusic()
+        stopSlot1()
+        stopSlot2()
+        stopSlot3()
+        stopSlot4()
+    }
+
+    @objc private func appDidBecomeActive() {
         if isMusicEnabled {
             playBackgroundMusic()
         }

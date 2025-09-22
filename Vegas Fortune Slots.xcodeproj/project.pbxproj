@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		8665C2D62E7BFD4400313E3B /* Slots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slots.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8665C2D62E7BFD4400313E3B /* Vegas Fortune Slots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vegas Fortune Slots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8665C2F62E7C046A00313E3B /* Exceptions for "Slots" folder in "Slots" target */ = {
+		8665C2F62E7C046A00313E3B /* Exceptions for "Slots" folder in "Vegas Fortune Slots" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 8665C2D52E7BFD4400313E3B /* Slots */;
+			target = 8665C2D52E7BFD4400313E3B /* Vegas Fortune Slots */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -24,7 +24,7 @@
 		8665C2D82E7BFD4400313E3B /* Slots */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8665C2F62E7C046A00313E3B /* Exceptions for "Slots" folder in "Slots" target */,
+				8665C2F62E7C046A00313E3B /* Exceptions for "Slots" folder in "Vegas Fortune Slots" target */,
 			);
 			path = Slots;
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		8665C2D72E7BFD4400313E3B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8665C2D62E7BFD4400313E3B /* Slots.app */,
+				8665C2D62E7BFD4400313E3B /* Vegas Fortune Slots.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8665C2D52E7BFD4400313E3B /* Slots */ = {
+		8665C2D52E7BFD4400313E3B /* Vegas Fortune Slots */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8665C2E42E7BFD4500313E3B /* Build configuration list for PBXNativeTarget "Slots" */;
+			buildConfigurationList = 8665C2E42E7BFD4500313E3B /* Build configuration list for PBXNativeTarget "Vegas Fortune Slots" */;
 			buildPhases = (
 				8665C2D22E7BFD4400313E3B /* Sources */,
 				8665C2D32E7BFD4400313E3B /* Frameworks */,
@@ -76,11 +76,11 @@
 			fileSystemSynchronizedGroups = (
 				8665C2D82E7BFD4400313E3B /* Slots */,
 			);
-			name = Slots;
+			name = "Vegas Fortune Slots";
 			packageProductDependencies = (
 			);
 			productName = Slots;
-			productReference = 8665C2D62E7BFD4400313E3B /* Slots.app */;
+			productReference = 8665C2D62E7BFD4400313E3B /* Vegas Fortune Slots.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8665C2D12E7BFD4400313E3B /* Build configuration list for PBXProject "Slots" */;
+			buildConfigurationList = 8665C2D12E7BFD4400313E3B /* Build configuration list for PBXProject "Vegas Fortune Slots" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8665C2D52E7BFD4400313E3B /* Slots */,
+				8665C2D52E7BFD4400313E3B /* Vegas Fortune Slots */,
 			);
 		};
 /* End PBXProject section */
@@ -269,6 +269,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Slots/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vegas Fortune Slots";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +305,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Slots/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vegas Fortune Slots";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -330,7 +332,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8665C2D12E7BFD4400313E3B /* Build configuration list for PBXProject "Slots" */ = {
+		8665C2D12E7BFD4400313E3B /* Build configuration list for PBXProject "Vegas Fortune Slots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8665C2E22E7BFD4500313E3B /* Debug */,
@@ -339,7 +341,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8665C2E42E7BFD4500313E3B /* Build configuration list for PBXNativeTarget "Slots" */ = {
+		8665C2E42E7BFD4500313E3B /* Build configuration list for PBXNativeTarget "Vegas Fortune Slots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8665C2E52E7BFD4500313E3B /* Debug */,

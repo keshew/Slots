@@ -107,7 +107,7 @@ struct MainView: View {
             return Color(red: 130/255, green: 1/255, blue: 154/255)
         }
     }
-    
+    @Environment(\.openURL) var openURL
     var body: some View {
         ZStack {
             Image(selectedBG)
@@ -130,7 +130,9 @@ struct MainView: View {
                     HStack {
                         HStack {
                             Button(action: {
-                                
+                                if let url = URL(string: "https://www.freeprivacypolicy.com/live/077e394b-35df-4759-abf0-42a1477aefc5") {
+                                       openURL(url)
+                                   }
                             }) {
                                 ZStack {
                                     Circle()
