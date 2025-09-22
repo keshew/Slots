@@ -2,9 +2,9 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var settingsModel =  SettingsViewModel()
-    @State var music: Float = 0
-    @State var sound: Float = 0
-    @State var isAudioOn = false
+    @State var music: Float = UserDefaults.standard.float(forKey: "musicVolume")
+    @State var sound: Float = UserDefaults.standard.float(forKey: "soundVolume")
+    @State var isAudioOn = true
     @Binding var isShow: Bool
     
     var body: some View {
