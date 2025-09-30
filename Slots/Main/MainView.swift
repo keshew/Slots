@@ -8,6 +8,7 @@ struct MainView: View {
     @State var isProfile = false
     @ObservedObject private var soundManager = SoundManager.shared
     @State var isBall = false
+    @State var isWheel = false
     
     var selected: String {
         switch currentIndex {
@@ -416,7 +417,7 @@ struct MainView: View {
                         if currentIndex == 4 {
                             isBall = true
                         } else if currentIndex == 5 {
-                            
+                            isWheel = true
                         } else {
                             isGame = true
                         }
@@ -457,6 +458,9 @@ struct MainView: View {
         }
         .fullScreenCover(isPresented: $isBall) {
             BallGameView()
+        }
+        .fullScreenCover(isPresented: $isWheel) {
+            SpinGameView()
         }
     }
 }
