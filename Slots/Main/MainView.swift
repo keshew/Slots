@@ -7,6 +7,7 @@ struct MainView: View {
     @State var isSettings = false
     @State var isProfile = false
     @ObservedObject private var soundManager = SoundManager.shared
+    @State var isBall = false
     
     var selected: String {
         switch currentIndex {
@@ -33,6 +34,10 @@ struct MainView: View {
             return "bg3"
         case 3:
             return "bg4"
+        case 4:
+            return "bg5"
+        case 5:
+            return "bg6"
         default:
             return "bg1"
         }
@@ -48,6 +53,10 @@ struct MainView: View {
             return Color(red: 193/255, green: 0/255, blue: 7/255)
         case 3:
             return Color(red: 120/255, green: 1/255, blue: 130/255)
+        case 4:
+            return Color(red: 210/255, green: 46/255, blue: 188/255)
+        case 5:
+            return Color(red: 60/255, green: 46/255, blue: 210/255)
         default:
             return Color(red: 15/255, green: 64/255, blue: 84/255)
         }
@@ -71,6 +80,14 @@ struct MainView: View {
             return LinearGradient(colors: [Color(red: 86/255, green: 12/255, blue: 102/255),
                                            Color(red: 119/255, green: 7/255, blue: 130/255),
                                            Color(red: 14/255, green: 44/255, blue: 102/255)], startPoint: .leading, endPoint: .trailing)
+        case 4:
+            return LinearGradient(colors: [Color(red: 248/255, green: 62/255, blue: 208/255),
+                                           Color(red: 228/255, green: 41/255, blue: 226/255),
+                                           Color(red: 222/255, green: 17/255, blue: 177/255)], startPoint: .leading, endPoint: .trailing)
+        case 5:
+            return LinearGradient(colors: [Color(red: 124/255, green: 62/255, blue: 249/255),
+                                           Color(red: 59/255, green: 41/255, blue: 227/255),
+                                           Color(red: 44/255, green: 20/255, blue: 222/255)], startPoint: .leading, endPoint: .trailing)
         default:
             return LinearGradient(colors: [Color(red: 4/255, green: 75/255, blue: 102/255),
                                            Color(red: 0/255, green: 95/255, blue: 130/255),
@@ -88,6 +105,10 @@ struct MainView: View {
             return Color(red: 156/255, green: 1/255, blue: 0/255)
         case 3:
             return Color(red: 124/255, green: 1/255, blue: 149/255)
+        case 4:
+            return Color(red: 208/255, green: 33/255, blue: 188/255)
+        case 5:
+            return Color(red: 33/255, green: 49/255, blue: 209/255)
         default:
             return Color(red: 130/255, green: 1/255, blue: 154/255)
         }
@@ -103,6 +124,10 @@ struct MainView: View {
             return Color(red: 187/255, green: 65/255, blue: 1/255)
         case 3:
             return Color(red: 161/255, green: 66/255, blue: 102/255)
+        case 4:
+            return Color(red: 208/255, green: 82/255, blue: 116/255)
+        case 5:
+            return Color(red: 99/255, green: 99/255, blue: 147/255)
         default:
             return Color(red: 130/255, green: 1/255, blue: 154/255)
         }
@@ -110,10 +135,16 @@ struct MainView: View {
     @Environment(\.openURL) var openURL
     var body: some View {
         ZStack {
-            Image(selectedBG)
-                .resizable()
-                .ignoresSafeArea()
-                .aspectRatio(contentMode: .fill)
+            if currentIndex <= 3 {
+                Image(selectedBG)
+                    .resizable()
+                    .ignoresSafeArea()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Image(selectedBG)
+                    .resizable()
+                    .ignoresSafeArea()
+            }
             
             VStack {
                 ZStack {
@@ -220,7 +251,7 @@ struct MainView: View {
                     }
                     .padding(.horizontal, UIScreen.main.bounds.size.height > 700 ? 70 : 10)
                 }
-                .offset(y: UIScreen.main.bounds.size.height > 750 ? -20 : UIScreen.main.bounds.size.height > 700 ? 10 : UIScreen.main.bounds.size.height > 430 ? 65 : 55)
+                .offset(y: UIScreen.main.bounds.size.height > 750 ? -20 : UIScreen.main.bounds.size.height > 700 ? 10 : UIScreen.main.bounds.size.height > 430 ? (currentIndex <= 3 ? 65 : -2.5) : currentIndex <= 3 ? 55 : -2.5)
                 
                 Spacer()
                 
@@ -241,9 +272,7 @@ struct MainView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             Button(action: {
-                                withAnimation {
-                                    currentIndex = 0
-                                }
+                                currentIndex = 0
                             }) {
                                 ZStack {
                                     Image(.game1)
@@ -261,9 +290,7 @@ struct MainView: View {
                             }
                             
                             Button(action: {
-                                withAnimation {
-                                    currentIndex = 1
-                                }
+                                currentIndex = 1
                             }) {
                                 ZStack {
                                     Image(.game2)
@@ -281,9 +308,7 @@ struct MainView: View {
                             }
                             
                             Button(action: {
-                                withAnimation {
-                                    currentIndex = 2
-                                }
+                                currentIndex = 2
                             }) {
                                 ZStack {
                                     Image(.game3)
@@ -301,9 +326,7 @@ struct MainView: View {
                             }
                             
                             Button(action: {
-                                withAnimation {
-                                    currentIndex = 3
-                                }
+                                currentIndex = 3
                             }) {
                                 ZStack {
                                     Image(.game4)
@@ -319,12 +342,84 @@ struct MainView: View {
                                     }
                                 }
                             }
+                            
+                            Button(action: {
+                                currentIndex = 4
+                            }) {
+                                ZStack {
+                                    Image(.game5)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                    
+                                    if currentIndex == 4 {
+                                        Image(.selected4)
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                            .offset(y: -10)
+                                    }
+                                }
+                            }
+                            
+                            Button(action: {
+                                currentIndex = 5
+                            }) {
+                                ZStack {
+                                    Image(.game6)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                    
+                                    if currentIndex == 5 {
+                                        Image(.selected6)
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                            .offset(y: -10)
+                                    }
+                                }
+                            }
+                            
+                            ZStack {
+                                ZStack {
+                                    Image(.game5)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                }
+                                .blur(radius: 5)
+                                
+                                Image(.lock)
+                                    .resizable()
+                                    .frame(width: 108, height: 108)
+                                    .offset(y: -10)
+                            }
+                            
+                            ZStack {
+                                ZStack {
+                                    Image(.game6)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: UIScreen.main.bounds.size.height > 700 ? 300 : 163, height: UIScreen.main.bounds.size.height > 700 ? 300 : 172)
+                                }
+                                .blur(radius: 5)
+                                
+                                Image(.lock)
+                                    .resizable()
+                                    .frame(width: 108, height: 108)
+                                    .offset(y: -10)
+                            }
                         }
-                        .padding(.horizontal, UIScreen.main.bounds.size.height > 1000 ? 130 : 100)
+                        .padding(.horizontal, UIScreen.main.bounds.size.height > 1000 ? 130 : 0)
                     }
                     
                     Button(action: {
-                        isGame = true
+                        if currentIndex == 4 {
+                            isBall = true
+                        } else if currentIndex == 5 {
+                            
+                        } else {
+                            isGame = true
+                        }
                     }) {
                         Rectangle()
                             .fill(Color(red: 253/255, green: 199/255, blue: 2/255))
@@ -359,6 +454,9 @@ struct MainView: View {
         }
         .fullScreenCover(isPresented: $isGame) {
             GameView(currentIndex: $currentIndex)
+        }
+        .fullScreenCover(isPresented: $isBall) {
+            BallGameView()
         }
     }
 }
