@@ -155,7 +155,7 @@ struct BallGameView: View {
                                             .ignoresSafeArea()
                                     }
                             }
-                            .frame(width: UIScreen.main.bounds.size.height > 1000 ? 600 : UIScreen.main.bounds.size.height > 800 ? 500 : 435, height: UIScreen.main.bounds.size.height > 1000 ? 550 : UIScreen.main.bounds.size.height > 800 ? 400 : 310)
+                            .frame(width: UIScreen.main.bounds.size.height > 1000 ? 800 : UIScreen.main.bounds.size.height > 800 ? 500 : UIScreen.main.bounds.size.height > 730 ? 450 : 435, height: UIScreen.main.bounds.size.height > 1000 ? 650 : UIScreen.main.bounds.size.height > 800 ? 400 : UIScreen.main.bounds.size.height > 730 ? 350 : 280)
                             .cornerRadius(24)
                         
                         Button(action: {
@@ -634,14 +634,14 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
     func createObstacles() {
         let startRowCount = 2
         let numberOfRows = 7
-        let obstacleSize = CGSize(width: 37, height: 25)
+        let obstacleSize = CGSize(width: UIScreen.main.bounds.size.height > 1000 ? 50 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 40 : 37, height: UIScreen.main.bounds.size.height > 1000 ? 50 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 35 : 25)
         let horizontalSpacing: CGFloat = 35
         
         for row in 0..<numberOfRows {
             let countInRow = startRowCount + row
             let totalWidth = CGFloat(countInRow) * (obstacleSize.width + horizontalSpacing) - horizontalSpacing
             let xOffset = (size.width - totalWidth) / 2 + obstacleSize.width / 2
-            let yPosition = size.height / 1.2 - CGFloat(row) * (obstacleSize.height + 16)
+            let yPosition = size.height / 1.2 - CGFloat(row) * (obstacleSize.height + (UIScreen.main.bounds.size.height > 1000 ? 50 : UIScreen.main.bounds.size.height > 800 ? 30 : UIScreen.main.bounds.size.height > 730 ? 35 : UIScreen.main.bounds.height > 430 ? 16 : 13))
             
             for col in 0..<countInRow {
                 let obstacle = SKSpriteNode(imageNamed: "obstacle")
@@ -649,11 +649,10 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
                 let xPosition = xOffset + CGFloat(col) * (obstacleSize.width + horizontalSpacing)
                 obstacle.position = CGPoint(x: xPosition, y: yPosition)
                 
-                // Используем SKPhysicsBody(circleOfRadius:) для круглой физики
                 obstacle.physicsBody = SKPhysicsBody(circleOfRadius: obstacleSize.width / 2.0)
                 obstacle.physicsBody?.isDynamic = false
-                obstacle.physicsBody?.friction = 0.1  // Малое трение, чтобы шар катился
-                obstacle.physicsBody?.restitution = 0.8 // Отскок для скатывания
+                obstacle.physicsBody?.friction = 0.1
+                obstacle.physicsBody?.restitution = 0.8
                 obstacle.physicsBody?.categoryBitMask = obstacleCategory
                 obstacle.physicsBody?.contactTestBitMask = ballCategory
                 
@@ -668,7 +667,7 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
         let labels = game.labels
         
         let count = names.count
-        let ticketSize = CGSize(width: 55, height: 30)
+        let ticketSize = CGSize(width: UIScreen.main.bounds.size.height > 1000 ? 80 : UIScreen.main.bounds.size.height > 800 ? 80 : UIScreen.main.bounds.size.height > 730 ? 70 : 55, height: UIScreen.main.bounds.size.height > 1000 ? 55 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 50 : 30)
         let horizontalSpacing: CGFloat = 10
         let totalWidth = CGFloat(count) * (ticketSize.width + horizontalSpacing) - horizontalSpacing
         let xOffset = (size.width - totalWidth) / 2 + ticketSize.width / 2
@@ -688,7 +687,7 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
             
             let label = SKLabelNode(text: labels[i])
             label.fontName = "Helvetica-Bold"
-            label.fontSize = 12
+            label.fontSize = UIScreen.main.bounds.size.height > 1000 ? 20 : UIScreen.main.bounds.size.height > 800 ? 20 : UIScreen.main.bounds.size.height > 730 ? 18 : 12
             label.fontColor = .black
             label.verticalAlignmentMode = .center
             label.horizontalAlignmentMode = .center
@@ -710,7 +709,7 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
         
         for _ in 0..<game.numberOfBets {
             let ball = SKSpriteNode(imageNamed: "ball")
-            ball.size = CGSize(width: 30, height: 20)
+            ball.size = CGSize(width: UIScreen.main.bounds.size.height > 1000 ? 45 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 35 : 30, height: UIScreen.main.bounds.size.height > 1000 ? 40 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 30 : 20)
             ball.position = CGPoint(x: size.width / 2,
                                     y: size.height / 1.07)
             ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 5)
@@ -773,7 +772,7 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
         guard index < game.numberOfBets else { return }
         
         let ball = SKSpriteNode(imageNamed: "ball")
-        ball.size = CGSize(width: 30, height: 20)
+        ball.size = CGSize(width: UIScreen.main.bounds.size.height > 1000 ? 45 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 35 : 30, height: UIScreen.main.bounds.size.height > 1000 ? 40 : UIScreen.main.bounds.size.height > 800 ? 50 : UIScreen.main.bounds.size.height > 730 ? 30 : 20)
         ball.position = CGPoint(x: size.width / 2 ,
                                 y: size.height / 1.07)
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 5)

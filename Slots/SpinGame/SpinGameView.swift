@@ -28,38 +28,41 @@ struct SpinGameView: View {
     @State private var showSelectionAlert = false
       @State private var showBalanceAlert = false
 
-      func spinWheel() {
-          guard selectedNumber != nil || selectedColor != nil else {
-              showSelectionAlert = true
-              return
-          }
-          
-          guard balance >= bet else {
-              showBalanceAlert = true
-              return
-          }
-          
-          balance -= bet
-          UserDefaults.standard.set(balance, forKey: "coin")
-          
-          guard !isSpinning else { return }
-          isSpinning = true
-          let rotations = Double(Int.random(in: 4...7))
-          let randomStopAngle = Double.random(in: 0..<360)
-          let targetAngle = wheelAngle + rotations * 360 + randomStopAngle
-
-          withAnimation(.easeOut(duration: 3)) {
-              wheelAngle = targetAngle
-          }
-
-          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-              isSpinning = false
-              let stopAngle = wheelAngle.truncatingRemainder(dividingBy: 360)
-              resultSector = sectorForAngle(stopAngle)
-
-              checkResult()
-          }
-      }
+    func spinWheel() {
+        guard selectedNumber != nil || selectedColor != nil else {
+            showSelectionAlert = true
+            return
+        }
+        
+        guard balance >= bet else {
+            showBalanceAlert = true
+            return
+        }
+        
+        balance -= bet
+        UserDefaults.standard.set(balance, forKey: "coin")
+        
+        guard !isSpinning else { return }
+        isSpinning = true
+//        resultText = ""
+        
+        let rotations = Double(Int.random(in: 4...7))
+        let randomStopAngle = Double.random(in: 0..<360)
+        let totalRotation = rotations * 360 + randomStopAngle
+        
+        // Накопление угла для плавной анимации
+        withAnimation(.easeOut(duration: 3)) {
+            wheelAngle += totalRotation
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            isSpinning = false
+            let stopAngle = wheelAngle.truncatingRemainder(dividingBy: 360)
+            resultSector = sectorForAngle(stopAngle)
+            
+            checkResult()
+        }
+    }
 
       func checkResult() {
           if let sector = resultSector {
@@ -85,7 +88,7 @@ struct SpinGameView: View {
     
     func sectorForAngle(_ angle: Double) -> Sector {
         let normalizedAngle = angle.truncatingRemainder(dividingBy: 360)
-        let adjustedAngle = (360 - normalizedAngle - 20).truncatingRemainder(dividingBy: 360)
+        let adjustedAngle = (360 - normalizedAngle - 18).truncatingRemainder(dividingBy: 360)
         let index = Int(adjustedAngle / 18) % sectors.count
         
         return sectors[index]

@@ -252,7 +252,7 @@ struct MainView: View {
                     }
                     .padding(.horizontal, UIScreen.main.bounds.size.height > 700 ? 70 : 10)
                 }
-                .offset(y: UIScreen.main.bounds.size.height > 750 ? -20 : UIScreen.main.bounds.size.height > 700 ? 10 : UIScreen.main.bounds.size.height > 430 ? (currentIndex <= 3 ? 65 : -2.5) : currentIndex <= 3 ? 55 : -2.5)
+                .offset(y: UIScreen.main.bounds.size.height > 750 ? -20 : UIScreen.main.bounds.size.height > 700 ? (currentIndex <= 3 ? 10 : -20) : UIScreen.main.bounds.size.height > 430 ? (currentIndex <= 3 ? 65 : -2.5) : (currentIndex <= 3 ? 55 : -2.5))
                 
                 Spacer()
                 

@@ -39,7 +39,7 @@ class SoundManager: ObservableObject {
         loaSlot4Music()
 
         if isMusicEnabled {
-            playBackgroundMusic()
+//            playBackgroundMusic()
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
